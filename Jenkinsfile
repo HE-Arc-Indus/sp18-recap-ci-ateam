@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools { 
-        maven 'Maven 3.3.9' 
+        maven 'Maven 3.5.2' 
         jdk 'jdk8' 
     }
     stages {
@@ -22,8 +22,12 @@ pipeline {
 	stage('Test') {
 		steps {
 			sh 'mvn test'
-			junit 'target/surefire-reports/*.xml'
 		}
 	}
     }
+post {
+        always {
+            junit 'target/surefire-reports/*.xml'
+        }
+}
 }
